@@ -28,15 +28,23 @@ async function loadContactData() {
         populateContactForm();
     } catch (error) {
         console.error('Error loading contact data:', error);
-        // Create default contact data if file doesn't exist
-        contactData = {
-            address: { en: "", gr: "" },
-            phone: "",
-            email: "",
-            hours: { en: "", gr: "" },
-            mapTitle: { en: "Find Us in Athens", gr: "Βρείτε μας στην Αθήνα" },
-            mapDescription: { en: "", gr: "" }
-        };
+        
+        // Try to load from localStorage
+        const savedData = localStorage.getItem('contactData');
+        if (savedData) {
+            contactData = JSON.parse(savedData);
+            populateContactForm();
+        } else {
+            // Create default contact data if nothing exists
+            contactData = {
+                address: { en: "", gr: "" },
+                phone: "",
+                email: "",
+                hours: { en: "", gr: "" },
+                mapTitle: { en: "Find Us in Athens", gr: "Βρείτε μας στην Αθήνα" },
+                mapDescription: { en: "", gr: "" }
+            };
+        }
     }
 }
 
@@ -285,15 +293,29 @@ function saveContactInfo() {
         }
     };
     
-    const dataStr = JSON.stringify(contactData, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    // Save to localStorage for immediate use
+    localStorage.setItem('contactData', JSON.stringify(contactData));
     
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(dataBlob);
-    link.download = 'contact-data.json';
-    link.click();
-    
-    showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν! Αντικαταστήστε το contact-data.json αρχείο.', 'success');
+    // Also create downloadable file as backup
+    try {
+        const dataStr = JSON.stringify(contactData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = 'contact-data.json';
+        
+        // Use a timeout to ensure the click works
+        setTimeout(() => {
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }, 100);
+        
+        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς!', 'success');
+    } catch (error) {
+        console.error('Error saving contact info:', error);
+        showNotification('Σφάλμα κατά την αποθήκευση. Δοκιμάστε ξανά.', 'error');
+    }
 }
 
 // Close modal
