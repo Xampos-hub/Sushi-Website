@@ -59,10 +59,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            // Fallback για browsers που δεν υποστηρίζουν smooth behavior
+            if ('scrollBehavior' in document.documentElement.style) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else {
+                // Fallback για παλιότερους browsers
+                target.scrollIntoView();
+            }
         }
     });
 });
