@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushi&Noodles - Authentic Japanese Cuisine | Αυθεντική Ιαπωνική Κουζίνα</title>
+    <title>Sushi&Noodles - Authentic Japanese Cuisine in Athens</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -18,19 +20,27 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <h2>Sushi<span>&</span>Noodles</h2>
+            <div class="nav-logo">
+                <h1>Sushi<span>&</span>Noodles</h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" data-en="Home" data-gr="Αρχική">Home</a></li>
-                <li><a href="#menu" data-en="Menu" data-gr="Μενού">Menu</a></li>
-                <li><a href="#about" data-en="About" data-gr="Σχετικά">About</a></li>
-                <li><a href="#contact" data-en="Contact" data-gr="Επικοινωνία">Contact</a></li>
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-en="Home" data-gr="Αρχική">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#menu" class="nav-link" data-en="Menu" data-gr="Μενού">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-en="About" data-gr="Σχετικά">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-en="Contact" data-gr="Επικοινωνία">Contact</a>
+                </li>
             </ul>
             <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
     </nav>
@@ -38,15 +48,9 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1 data-en="Welcome to Sushi&Noodles" data-gr="Καλώς ήρθατε στο Sushi&Noodles">Welcome to <span>Sushi&Noodles</span></h1>
-            <p data-en="Experience authentic Japanese cuisine with fresh sushi and delicious noodles" data-gr="Απολαύστε αυθεντική ιαπωνική κουζίνα με φρέσκο σούσι και νόστιμα νούντλς">Experience authentic Japanese cuisine with fresh sushi and delicious noodles</p>
-            <div class="hero-buttons">
-                <a href="#menu" class="btn-primary" data-en="View Menu" data-gr="Δείτε το Μενού">View Menu</a>
-                <a href="#contact" class="btn-secondary" data-en="Visit Us" data-gr="Επισκεφθείτε μας">Visit Us</a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <i class="fas fa-utensils"></i>
+            <h1 data-en="Welcome to Sushi&Noodles" data-gr="Καλώς ήρθατε στο Sushi&Noodles">Welcome to Sushi&Noodles</h1>
+            <p data-en="Authentic Japanese cuisine in the heart of Athens" data-gr="Αυθεντική ιαπωνική κουζίνα στην καρδιά της Αθήνας">Authentic Japanese cuisine in the heart of Athens</p>
+            <a href="#menu" class="cta-button" data-en="View Menu" data-gr="Δείτε το Μενού">View Menu</a>
         </div>
     </section>
 
@@ -66,13 +70,13 @@
 
             <!-- Menu Items -->
             <div class="menu-grid">
-                <!-- Sushi Items -->
+                <!-- Sushi -->
                 <div class="menu-item" data-category="sushi">
                     <div class="menu-item-image">
                         <i class="fas fa-fish"></i>
                     </div>
                     <h3 data-en="Salmon Roll" data-gr="Ρολό Σολομού">Salmon Roll</h3>
-                    <p data-en="Fresh salmon with avocado and cucumber" data-gr="Φρέσκος σολομός με αβοκάντο και αγγούρι">Fresh salmon with avocado and cucumber</p>
+                    <p data-en="Fresh salmon, avocado, cucumber" data-gr="Φρέσκος σολομός, αβοκάντο, αγγούρι">Fresh salmon, avocado, cucumber</p>
                     <span class="price">€12.99</span>
                 </div>
 
@@ -81,7 +85,7 @@
                         <i class="fas fa-fish"></i>
                     </div>
                     <h3 data-en="Tuna Sashimi" data-gr="Σασίμι Τόνου">Tuna Sashimi</h3>
-                    <p data-en="Premium tuna slices, served fresh" data-gr="Φέτες τόνου premium, σερβίρονται φρέσκες">Premium tuna slices, served fresh</p>
+                    <p data-en="Premium tuna slices (8 pieces)" data-gr="Premium φέτες τόνου (8 κομμάτια)">Premium tuna slices (8 pieces)</p>
                     <span class="price">€15.99</span>
                 </div>
 
@@ -90,26 +94,17 @@
                         <i class="fas fa-fish"></i>
                     </div>
                     <h3 data-en="California Roll" data-gr="Καλιφόρνια Ρολό">California Roll</h3>
-                    <p data-en="Crab, avocado, and cucumber roll" data-gr="Ρολό με καβούρι, αβοκάντο και αγγούρι">Crab, avocado, and cucumber roll</p>
+                    <p data-en="Crab, avocado, cucumber, sesame" data-gr="Καβούρι, αβοκάντο, αγγούρι, σουσάμι">Crab, avocado, cucumber, sesame</p>
                     <span class="price">€10.99</span>
                 </div>
 
-                <div class="menu-item" data-category="sushi">
-                    <div class="menu-item-image">
-                        <i class="fas fa-fish"></i>
-                    </div>
-                    <h3 data-en="Dragon Roll" data-gr="Ρολό Δράκου">Dragon Roll</h3>
-                    <p data-en="Eel and cucumber topped with avocado" data-gr="Χέλι και αγγούρι με αβοκάντο από πάνω">Eel and cucumber topped with avocado</p>
-                    <span class="price">€18.99</span>
-                </div>
-
-                <!-- Noodle Items -->
+                <!-- Noodles -->
                 <div class="menu-item" data-category="noodles">
                     <div class="menu-item-image">
                         <i class="fas fa-bowl-food"></i>
                     </div>
                     <h3 data-en="Chicken Ramen" data-gr="Ράμεν Κοτόπουλου">Chicken Ramen</h3>
-                    <p data-en="Rich chicken broth with fresh noodles" data-gr="Πλούσιος ζωμός κοτόπουλου με φρέσκα νούντλς">Rich chicken broth with fresh noodles</p>
+                    <p data-en="Rich broth, tender chicken, soft-boiled egg" data-gr="Πλούσιος ζωμός, τρυφερό κοτόπουλο, μαλακό αυγό">Rich broth, tender chicken, soft-boiled egg</p>
                     <span class="price">€13.99</span>
                 </div>
 
@@ -118,8 +113,8 @@
                         <i class="fas fa-bowl-food"></i>
                     </div>
                     <h3 data-en="Beef Udon" data-gr="Ουντόν Μοσχαριού">Beef Udon</h3>
-                    <p data-en="Thick udon noodles with tender beef" data-gr="Χοντρά νούντλς ουντόν με τρυφερό μοσχάρι">Thick udon noodles with tender beef</p>
-                    <span class="price">€16.99</span>
+                    <p data-en="Thick udon noodles with marinated beef" data-gr="Χοντρά νούντλς ουντόν με μαριναρισμένο μοσχάρι">Thick udon noodles with marinated beef</p>
+                    <span class="price">€14.99</span>
                 </div>
 
                 <div class="menu-item" data-category="noodles">
@@ -131,25 +126,7 @@
                     <span class="price">€11.99</span>
                 </div>
 
-                <div class="menu-item" data-category="noodles">
-                    <div class="menu-item-image">
-                        <i class="fas fa-bowl-food"></i>
-                    </div>
-                    <h3 data-en="Spicy Miso Ramen" data-gr="Πικάντικο Ράμεν Μίσο">Spicy Miso Ramen</h3>
-                    <p data-en="Traditional miso broth with spicy kick" data-gr="Παραδοσιακός ζωμός μίσο με πικάντικη γεύση">Traditional miso broth with spicy kick</p>
-                    <span class="price">€14.99</span>
-                </div>
-
                 <!-- Appetizers -->
-                <div class="menu-item" data-category="appetizers">
-                    <div class="menu-item-image">
-                        <i class="fas fa-shrimp"></i>
-                    </div>
-                    <h3 data-en="Gyoza" data-gr="Γκιόζα">Gyoza</h3>
-                    <p data-en="Pan-fried pork dumplings (6 pieces)" data-gr="Τηγανητά ραβιόλια χοιρινού (6 κομμάτια)">Pan-fried pork dumplings (6 pieces)</p>
-                    <span class="price">€8.99</span>
-                </div>
-
                 <div class="menu-item" data-category="appetizers">
                     <div class="menu-item-image">
                         <i class="fas fa-pepper-hot"></i>
@@ -311,22 +288,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-<div class="contact-info">
-    <div class="contact-item">
-        <i class="fas fa-map-marker-alt"></i>
-        <span data-contact="address">Κεντρική 123, Αθήνα 10431</span>
-    </div>
-    <div class="contact-item">
-        <i class="fas fa-phone"></i>
-        <span data-contact="phone">+30 210 123 4567</span>
-    </div>
-    <div class="contact-item">
-        <i class="fas fa-clock"></i>
-        <span data-contact="hours">Δευ-Πεμ: 11:00-23:00, Παρ-Σαβ: 11:00-24:00, Κυρ: 12:00-23:00</span>
-    </div>
-    <div class="contact-item">
-        <i class="fas fa-envelope"></i>
-        <span data-contact="email">info@sushirestaurant.gr</span>
-    </div>
-</div>
