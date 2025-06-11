@@ -1,4 +1,4 @@
-// Admin Panel JavaScript - Complete Version
+// Admin Panel JavaScript
 let menuData = {};
 let contactData = {};
 let currentCategory = 'sushi';
@@ -476,44 +476,6 @@ async function saveContactInfoToGitHub(contactData) {
         console.error('GitHub save error:', error);
         showNotification('Σφάλμα κατά την αποθήκευση στο GitHub: ' + error.message, 'error');
         return false;
-    }
-}
-
-// Updated save contact info function
-async function saveContactInfo() {
-    const contactData = {
-        address: {
-            en: document.getElementById('address-en').value,
-            gr: document.getElementById('address-gr').value
-        },
-        phone: {
-            en: document.getElementById('phone-en').value,
-            gr: document.getElementById('phone-gr').value
-        },
-        email: {
-            en: document.getElementById('email-en').value,
-            gr: document.getElementById('email-gr').value
-        },
-        hours: {
-            en: document.getElementById('hours-en').value,
-            gr: document.getElementById('hours-gr').value
-        },
-        mapTitle: {
-            en: document.getElementById('map-title-en').value,
-            gr: document.getElementById('map-title-gr').value
-        },
-        mapDescription: {
-            en: document.getElementById('map-desc-en').value,
-            gr: document.getElementById('map-desc-gr').value
-        }
-    };
-    
-    // Save to GitHub
-    const success = await saveContactInfoToGitHub(contactData);
-    
-    if (success) {
-        // Also save locally as backup
-        localStorage.setItem('contactData', JSON.stringify(contactData));
     }
 }
 
