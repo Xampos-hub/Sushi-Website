@@ -270,8 +270,16 @@ function populateContactForm() {
     }
 }
 
-// Save contact info
-function saveContactInfo() {
+// GitHub configuration
+const GITHUB_CONFIG = {
+    owner: 'Xamposs',  // Αλλάξτε με το GitHub username σας
+    repo: 'YOUR_REPOSITORY_NAME',   // Αλλάξτε με το όνομα του repository σας
+    branch: 'main',
+    filePath: 'contact-data.json'
+};
+
+// Save contact info to GitHub
+async function saveContactInfo() {
     try {
         contactData = {
             address: {
@@ -294,25 +302,94 @@ function saveContactInfo() {
             }
         };
         
-        // Save to localStorage
-        localStorage.setItem('contactData', JSON.stringify(contactData));
-        
-        // Create and download JSON file
-        const dataStr = JSON.stringify(contactData, null, 2);
-        const dataBlob = new Blob([dataStr], {type: 'application/json'});
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = 'contact-data.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-        
-        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς!', 'success');
+        await saveContactInfoToGitHub(contactData);
+        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς στο GitHub!', 'success');
         
     } catch (error) {
         console.error('Error saving contact info:', error);
         showNotification('Σφάλμα κατά την αποθήκευση: ' + error.message, 'error');
+    }
+}
+
+// Save contact info to GitHub repository
+async function saveContactInfoToGitHub(data) {
+    const token = localStorage.getItem('githubToken');
+    if (!token) {
+        throw new Error('GitHub token δεν βρέθηκε. Παρακαλώ ορίστε το token στις ρυθμίσεις.');
+    }
+    
+    const content = btoa(JSON.stringify(data, null, 2));
+    
+    try {
+        // Get current file SHA (if exists)
+        let sha = null;
+        try {
+            const getResponse = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`, {
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            
+            if (getResponse.ok) {
+                const fileData = await getResponse.json();
+                sha = fileData.sha;
+            }
+        } catch (e) {
+            // File doesn't exist, that's ok
+        }
+        
+        // Create or update file
+        const updateData = {
+            message: `Update contact information - ${new Date().toISOString()}`,
+            content: content,
+            branch: GITHUB_CONFIG.branch
+        };
+        
+        if (sha) {
+            updateData.sha = sha;
+        }
+        
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updateData)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`GitHub API Error: ${errorData.message}`);
+        }
+        
+        return await response.json();
+        
+    } catch (error) {
+        throw new Error(`Αποτυχία αποθήκευσης στο GitHub: ${error.message}`);
+    }
+}
+
+// Set GitHub token
+function setGitHubToken() {
+    const token = prompt('Εισάγετε το GitHub Personal Access Token σας:');
+    if (token) {
+        localStorage.setItem('githubToken', token);
+        showNotification('GitHub token αποθηκεύτηκε επιτυχώς!', 'success');
+    }
+}
+
+// Load GitHub token
+function loadGitHubToken() {
+    const token = localStorage.getItem('githubToken');
+    if (token) {
+        showNotification('GitHub token φορτώθηκε επιτυχώς!', 'success');
+        return token;
+    } else {
+        showNotification('GitHub token δεν βρέθηκε. Παρακαλώ ορίστε το token.', 'error');
+        return null;
     }
 }
 
