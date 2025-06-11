@@ -123,26 +123,59 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     gap: 50px;
     align-items: center;
-    text-align: center;
+    min-height: 80vh;
 }
 
 .hero-center {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .chopstick-left, .chopstick-right {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+}
+
+.chopstick {
+    width: 8px;
+    height: 200px;
+    background: linear-gradient(to bottom, #8B4513 0%, #D2691E 50%, #8B4513 100%);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.chopstick::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 20px;
+    background: #654321;
+    border-radius: 3px;
 }
 
 .noodles-plate {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.noodles-plate i {
+    font-size: 4rem;
+    color: rgba(255,255,255,0.4);
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
 }
 
 .hero-content h1 {
@@ -165,6 +198,8 @@ body {
 .hero-buttons {
     display: flex;
     gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
 }
 
 .btn-primary, .btn-secondary {
@@ -589,9 +624,13 @@ body {
     }
     
     .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
         gap: 15px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 200px;
     }
     
     .btn-primary, .btn-secondary {
@@ -1253,9 +1292,13 @@ body {
     }
     
     .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
         gap: 15px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 200px;
     }
     
     .btn-primary, .btn-secondary {
@@ -1917,9 +1960,13 @@ body {
     }
     
     .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
         gap: 15px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 200px;
     }
     
     .btn-primary, .btn-secondary {
@@ -2581,9 +2628,13 @@ body {
     }
     
     .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
         gap: 15px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 200px;
     }
     
     .btn-primary, .btn-secondary {
