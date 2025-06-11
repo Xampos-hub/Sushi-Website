@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi&Noodles - Admin Panel</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Login Screen -->
+        <div id="login-screen" class="login-screen">
+            <div class="login-box">
+                <div class="login-header">
+                    <i class="fas fa-utensils"></i>
+                    <h2>Sushi&Noodles</h2>
+                    <p>Admin Panel</p>
+                </div>
+                <div class="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="admin-password" placeholder="Enter admin password">
+                    </div>
+                    <button onclick="login()" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin-panel" class="admin-panel" style="display: none;">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-utensils"></i>
+                    <h2>Admin Panel</h2>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#" class="nav-item active" onclick="showSection('menu')">
+                        <i class="fas fa-utensils"></i>
+                        <span>Menu Management</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('contact')">
+                        <i class="fas fa-address-book"></i>
+                        <span>Contact Info</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Menu Management Section -->
+                <div id="menu-section" class="content-section active">
+                    <div class="section-header">
+                        <h1><i class="fas fa-utensils"></i> Menu Management</h1>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="addNewItem()">
+                                <i class="fas fa-plus"></i> Add New Item
+                            </button>
+                            <button class="btn btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save All Changes
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category Tabs -->
+                    <div class="category-tabs">
+                        <button class="tab-btn active" onclick="showCategory('sushi')">
+                            <i class="fas fa-fish"></i> Sushi
+                        </button>
+                        <button class="tab-btn" onclick="showCategory('noodles')">
+                            <i class="fas fa-bowl-food"></i> Noodles
+                        </button>
+                        <button class="tab-btn" onclick="showCategory('appetizers')">
+                            <i class="fas fa-seedling"></i> Appetizers
+                        </button>
+                        <button class="tab-btn" onclick="showCategory('drinks')">
+                            <i class="fas fa-glass-water"></i> Drinks
+                        </button>
+                    </div>
+
+                    <!-- Menu Items Container -->
+                    <div id="menu-items-container" class="menu-items-container">
+                        <!-- Items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Contact Management Section -->
+                <div id="contact-section" class="content-section">
+                    <div class="section-header">
+                        <h1><i class="fas fa-address-book"></i> Contact Information</h1>
+                        <div class="header-actions">
+                            <button class="btn btn-success" onclick="saveContactInfo()">
+                                <i class="fas fa-save"></i> Save Contact Info
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <div class="contact-form-grid">
+                            <!-- Address -->
+                            <div class="form-group">
+                                <label><i class="fas fa-map-marker-alt"></i> Address</label>
+                                <div class="language-inputs">
+                                    <div class="input-group">
+                                        <span class="input-label">English:</span>
+                                        <textarea id="address-en" placeholder="Enter address in English"></textarea>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-label">Greek:</span>
+                                        <textarea id="address-gr" placeholder="Εισάγετε διεύθυνση στα ελληνικά"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Phone Number</label>
+                                <input type="text" id="phone" placeholder="+30 210 123 4567">
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="email" placeholder="info@sushinoodles.gr">
+                            </div>
+
+                            <!-- Hours -->
+                            <div class="form-group">
+                                <label><i class="fas fa-clock"></i> Operating Hours</label>
+                                <div class="language-inputs">
+                                    <div class="input-group">
+                                        <span class="input-label">English:</span>
+                                        <textarea id="hours-en" placeholder="Mon-Thu: 11AM-10PM, etc."></textarea>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-label">Greek:</span>
+                                        <textarea id="hours-gr" placeholder="Δευ-Πέμ: 11πμ-10μμ, κτλ."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Map Title -->
+                            <div class="form-group">
+                                <label><i class="fas fa-map"></i> Map Section Title</label>
+                                <div class="language-inputs">
+                                    <div class="input-group">
+                                        <span class="input-label">English:</span>
+                                        <input type="text" id="map-title-en" placeholder="Find Us in Athens">
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-label">Greek:</span>
+                                        <input type="text" id="map-title-gr" placeholder="Βρείτε μας στην Αθήνα">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Map Description -->
+                            <div class="form-group">
+                                <label><i class="fas fa-info-circle"></i> Map Description</label>
+                                <div class="language-inputs">
+                                    <div class="input-group">
+                                        <span class="input-label">English:</span>
+                                        <textarea id="map-desc-en" placeholder="Located in the heart of Athens..."></textarea>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-label">Greek:</span>
+                                        <textarea id="map-desc-gr" placeholder="Βρισκόμαστε στην καρδιά της Αθήνας..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings-section" class="content-section">
+                    <div class="section-header">
+                        <h1><i class="fas fa-cog"></i> Settings</h1>
+                    </div>
+                    <div class="settings-container">
+                        <div class="setting-item">
+                            <h3>Change Admin Password</h3>
+                            <div class="password-change">
+                                <input type="password" id="new-password" placeholder="New Password">
+                                <button class="btn btn-primary" onclick="changePassword()">
+                                    <i class="fas fa-key"></i> Change Password
+                                </button>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <h3>Export Data</h3>
+                            <p>Download all menu and contact data as backup files.</p>
+                            <button class="btn btn-secondary" onclick="exportAllData()">
+                                <i class="fas fa-download"></i> Export All Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div id="edit-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-edit"></i> Edit Menu Item</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <form id="edit-form" class="modal-form">
+                    <input type="hidden" id="item-id">
+                    <input type="hidden" id="item-category">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name (English):</label>
+                            <input type="text" id="name-en" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Name (Greek):</label>
+                            <input type="text" id="name-gr" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Description (English):</label>
+                            <textarea id="description-en" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Description (Greek):</label>
+                            <textarea id="description-gr" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="text" id="price" required placeholder="€12.99">
+                        </div>
+                        <div class="form-group">
+                            <label>Icon Class:</label>
+                            <input type="text" id="icon" required placeholder="fas fa-fish">
+                        </div>
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="button" onclick="saveItem()" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save
+                        </button>
+                        <button type="button" onclick="deleteItem()" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                        <button type="button" onclick="closeModal()" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

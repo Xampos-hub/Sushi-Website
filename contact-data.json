@@ -1,0 +1,20 @@
+{
+  "address": {
+    "en": "123 Sushi Street, Athens, Greece 10431",
+    "gr": "Οδός Σούσι 123, Αθήνα, Ελλάδα 10431"
+  },
+  "phone": "+30 210 123 4567",
+  "email": "info@sushinoodles.gr",
+  "hours": {
+    "en": "Mon-Thu: 11AM-10PM, Fri-Sat: 11AM-11PM, Sun: 12PM-9PM",
+    "gr": "Δευ-Πέμ: 11πμ-10μμ, Παρ-Σάβ: 11πμ-11μμ, Κυρ: 12μ-9μμ"
+  },
+  "mapTitle": {
+    "en": "Find Us in Athens",
+    "gr": "Βρείτε μας στην Αθήνα"
+  },
+  "mapDescription": {
+    "en": "Located in the heart of Athens, easily accessible by metro and bus.",
+    "gr": "Βρισκόμαστε στην καρδιά της Αθήνας, εύκολα προσβάσιμο με μετρό και λεωφορείο."
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "sushi": [
+    {
+      "id": "salmon-roll",
+      "name": {
+        "en": "Salmon Roll",
+        "gr": "Ρολό Σολομού"
+      },
+      "description": {
+        "en": "Fresh salmon with avocado and cucumber",
+        "gr": "Φρέσκος σολομός με αβοκάντο και αγγούρι"
+      },
+      "price": "€12.99",
+      "icon": "fas fa-fish"
+    },
+    {
+      "id": "tuna-sashimi",
+      "name": {
+        "en": "Tuna Sashimi",
+        "gr": "Σασίμι Τόνου"
+      },
+      "description": {
+        "en": "Premium tuna slices, served fresh",
+        "gr": "Φέτες τόνου premium, σερβίρονται φρέσκες"
+      },
+      "price": "€15.99",
+      "icon": "fas fa-fish"
+    },
+    {
+      "id": "california-roll",
+      "name": {
+        "en": "California Roll",
+        "gr": "Καλιφόρνια Ρολό"
+      },
+      "description": {
+        "en": "Crab, avocado, and cucumber roll",
+        "gr": "Ρολό με καβούρι, αβοκάντο και αγγούρι"
+      },
+      "price": "€10.99",
+      "icon": "fas fa-fish"
+    },
+    {
+      "id": "dragon-roll",
+      "name": {
+        "en": "Dragon Roll",
+        "gr": "Ρολό Δράκου"
+      },
+      "description": {
+        "en": "Eel and cucumber topped with avocado",
+        "gr": "Χέλι και αγγούρι με αβοκάντο από πάνω"
+      },
+      "price": "€18.99",
+      "icon": "fas fa-fish"
+    }
+  ],
+  "noodles": [
+    {
+      "id": "chicken-ramen",
+      "name": {
+        "en": "Chicken Ramen",
+        "gr": "Ράμεν Κοτόπουλου"
+      },
+      "description": {
+        "en": "Rich chicken broth with fresh noodles",
+        "gr": "Πλούσιος ζωμός κοτόπουλου με φρέσκα νούντλς"
+      },
+      "price": "€13.99",
+      "icon": "fas fa-bowl-food"
+    },
+    {
+      "id": "beef-udon",
+      "name": {
+        "en": "Beef Udon",
+        "gr": "Ουντόν Μοσχαριού"
+      },
+      "description": {
+        "en": "Thick udon noodles with tender beef",
+        "gr": "Χοντρά νούντλς ουντόν με τρυφερό μοσχάρι"
+      },
+      "price": "€16.99",
+      "icon": "fas fa-bowl-food"
+    },
+    {
+      "id": "vegetable-yakisoba",
+      "name": {
+        "en": "Vegetable Yakisoba",
+        "gr": "Γιακισόμπα Λαχανικών"
+      },
+      "description": {
+        "en": "Stir-fried noodles with fresh vegetables",
+        "gr": "Τηγανητά νούντλς με φρέσκα λαχανικά"
+      },
+      "price": "€11.99",
+      "icon": "fas fa-bowl-food"
+    },
+    {
+      "id": "spicy-miso-ramen",
+      "name": {
+        "en": "Spicy Miso Ramen",
+        "gr": "Πικάντικο Ράμεν Μίσο"
+      },
+      "description": {
+        "en": "Traditional miso broth with spicy kick",
+        "gr": "Παραδοσιακός ζωμός μίσο με πικάντικη γεύση"
+      },
+      "price": "€14.99",
+      "icon": "fas fa-bowl-food"
+    }
+  ],
+  "appetizers": [
+    {
+      "id": "gyoza",
+      "name": {
+        "en": "Gyoza",
+        "gr": "Γκιόζα"
+      },
+      "description": {
+        "en": "Pan-fried pork dumplings (6 pieces)",
+        "gr": "Τηγανητά ραβιόλια χοιρινού (6 κομμάτια)"
+      },
+      "price": "€8.99",
+      "icon": "fas fa-shrimp"
+    },
+    {
+      "id": "tempura",
+      "name": {
+        "en": "Tempura",
+        "gr": "Τεμπούρα"
+      },
+      "description": {
+        "en": "Crispy battered vegetables and shrimp",
+        "gr": "Τραγανά λαχανικά και γαρίδες σε κουρκούτι"
+      },
+      "price": "€9.99",
+      "icon": "fas fa-shrimp"
+    },
+    {
+      "id": "edamame",
+      "name": {
+        "en": "Edamame",
+        "gr": "Εντάμαμε"
+      },
+      "description": {
+        "en": "Steamed soybeans with sea salt",
+        "gr": "Βρασμένα σογιαμπιζέλια με θαλασσινό αλάτι"
+      },
+      "price": "€5.99",
+      "icon": "fas fa-leaf"
+    }
+  ],
+  "drinks": [
+    {
+      "id": "sake",
+      "name": {
+        "en": "Sake",
+        "gr": "Σάκε"
+      },
+      "description": {
+        "en": "Traditional Japanese rice wine",
+        "gr": "Παραδοσιακό ιαπωνικό κρασί ρυζιού"
+      },
+      "price": "€6.99",
+      "icon": "fas fa-wine-bottle"
+    },
+    {
+      "id": "green-tea",
+      "name": {
+        "en": "Green Tea",
+        "gr": "Πράσινο Τσάι"
+      },
+      "description": {
+        "en": "Premium Japanese green tea",
+        "gr": "Premium ιαπωνικό πράσινο τσάι"
+      },
+      "price": "€3.99",
+      "icon": "fas fa-mug-hot"
+    },
+    {
+      "id": "ramune",
+      "name": {
+        "en": "Ramune",
+        "gr": "Ραμούνε"
+      },
+      "description": {
+        "en": "Japanese marble soda",
+        "gr": "Ιαπωνική σόδα με βόλο"
+      },
+      "price": "€4.99",
+      "icon": "fas fa-glass-water"
+    }
+  ]
+}

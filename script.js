@@ -25,6 +25,11 @@ function switchLanguage(lang) {
             }
         }
     });
+    
+    // Update menu language for dynamically loaded content
+    if (typeof updateMenuLanguage === 'function') {
+        updateMenuLanguage(lang);
+    }
 }
 
 // Language toggle event listeners
