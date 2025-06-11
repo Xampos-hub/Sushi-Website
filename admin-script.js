@@ -3,6 +3,9 @@ let menuData = {};
 let contactData = {};
 let currentCategory = 'sushi';
 
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'sushi123';
+
 // Initialize admin panel
 document.addEventListener('DOMContentLoaded', function() {
     loadContactData();
@@ -48,9 +51,6 @@ async function loadContactData() {
     }
 }
 
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'sushi123'; // Updated password
-
 // Login function
 function login() {
     const username = document.getElementById('admin-username').value;
@@ -75,7 +75,7 @@ function logout() {
     document.getElementById('admin-password').value = '';
 }
 
-// Show section (MISSING FUNCTION - THIS WAS THE PROBLEM!)
+// Show section
 function showSection(sectionName) {
     // Hide all sections
     document.querySelectorAll('.content-section').forEach(section => {
@@ -278,8 +278,8 @@ function saveContactInfo() {
                 en: document.getElementById('address-en').value,
                 gr: document.getElementById('address-gr').value
             },
-            phone: document.getElementById('phone').value,  // Διόρθωση: μόνο 'phone'
-            email: document.getElementById('email').value,  // Διόρθωση: μόνο 'email'
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
             hours: {
                 en: document.getElementById('hours-en').value,
                 gr: document.getElementById('hours-gr').value
