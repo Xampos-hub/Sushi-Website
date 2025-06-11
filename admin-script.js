@@ -318,7 +318,10 @@ async function saveContactInfoToGitHub(data) {
         throw new Error('GitHub token δεν βρέθηκε. Παρακαλώ ορίστε το token στις ρυθμίσεις.');
     }
     
-    const content = btoa(JSON.stringify(data, null, 2));
+    // Αλλάξτε αυτή τη γραμμή:
+    // const content = btoa(JSON.stringify(data, null, 2));
+    // Με αυτή:
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
     
     try {
         // Get current file SHA (if exists)
