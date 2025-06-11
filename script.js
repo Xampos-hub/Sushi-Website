@@ -123,7 +123,7 @@ document.head.appendChild(style);
 async function loadContactData() {
     try {
         // Try to load from GitHub first
-        const response = await fetch('https://raw.githubusercontent.com/Xampos-hub/Sushi-Website/main/contact-data.json');
+        const response = await fetch('https://raw.githubusercontent.com/Xamposs/Sushi-Website/main/contact-data.json');
         if (response.ok) {
             const contactData = await response.json();
             updateContactInfo(contactData);
