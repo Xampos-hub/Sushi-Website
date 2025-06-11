@@ -2,7 +2,6 @@
 let menuData = {};
 let contactData = {};
 let currentCategory = 'sushi';
-const ADMIN_PASSWORD = 'admin123'; // Change this to a secure password
 
 // Initialize admin panel
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,16 +40,23 @@ async function loadContactData() {
     }
 }
 
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'sushi123'; // Updated password
+
 // Login function
 function login() {
+    const username = document.getElementById('admin-username').value;
     const password = document.getElementById('admin-password').value;
-    if (password === ADMIN_PASSWORD) {
+    
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'block';
         loadMenuData();
-        loadContactData();
+        showNotification('Επιτυχής σύνδεση!', 'success');
     } else {
-        alert('Λάθος κωδικός!');
+        showNotification('Λάθος στοιχεία σύνδεσης!', 'error');
+        document.getElementById('admin-username').value = '';
+        document.getElementById('admin-password').value = '';
     }
 }
 
