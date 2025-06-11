@@ -272,49 +272,47 @@ function populateContactForm() {
 
 // Save contact info
 function saveContactInfo() {
-    contactData = {
-        address: {
-            en: document.getElementById('address-en').value,
-            gr: document.getElementById('address-gr').value
-        },
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        hours: {
-            en: document.getElementById('hours-en').value,
-            gr: document.getElementById('hours-gr').value
-        },
-        mapTitle: {
-            en: document.getElementById('map-title-en').value,
-            gr: document.getElementById('map-title-gr').value
-        },
-        mapDescription: {
-            en: document.getElementById('map-desc-en').value,
-            gr: document.getElementById('map-desc-gr').value
-        }
-    };
-    
-    // Save to localStorage for immediate use
-    localStorage.setItem('contactData', JSON.stringify(contactData));
-    
-    // Also create downloadable file as backup
     try {
+        contactData = {
+            address: {
+                en: document.getElementById('address-en').value,
+                gr: document.getElementById('address-gr').value
+            },
+            phone: document.getElementById('phone').value,  // Διόρθωση: μόνο 'phone'
+            email: document.getElementById('email').value,  // Διόρθωση: μόνο 'email'
+            hours: {
+                en: document.getElementById('hours-en').value,
+                gr: document.getElementById('hours-gr').value
+            },
+            mapTitle: {
+                en: document.getElementById('map-title-en').value,
+                gr: document.getElementById('map-title-gr').value
+            },
+            mapDescription: {
+                en: document.getElementById('map-desc-en').value,
+                gr: document.getElementById('map-desc-gr').value
+            }
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('contactData', JSON.stringify(contactData));
+        
+        // Create and download JSON file
         const dataStr = JSON.stringify(contactData, null, 2);
         const dataBlob = new Blob([dataStr], {type: 'application/json'});
-        
         const link = document.createElement('a');
         link.href = URL.createObjectURL(dataBlob);
         link.download = 'contact-data.json';
-        
-        // Use a timeout to ensure the click works
-        setTimeout(() => {
-            link.click();
-            URL.revokeObjectURL(link.href);
-        }, 100);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
         
         showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς!', 'success');
+        
     } catch (error) {
         console.error('Error saving contact info:', error);
-        showNotification('Σφάλμα κατά την αποθήκευση. Δοκιμάστε ξανά.', 'error');
+        showNotification('Σφάλμα κατά την αποθήκευση: ' + error.message, 'error');
     }
 }
 
