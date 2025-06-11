@@ -273,7 +273,7 @@ function populateContactForm() {
 // GitHub configuration
 const GITHUB_CONFIG = {
     owner: 'Xamposs',  // Αλλάξτε με το GitHub username σας
-    repo: 'YOUR_REPOSITORY_NAME',   // Αλλάξτε με το όνομα του repository σας
+    repo: 'Sushi-Website',   // Αλλάξτε με το όνομα του repository σας
     branch: 'main',
     filePath: 'contact-data.json'
 };
