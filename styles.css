@@ -172,63 +172,81 @@ body {
     align-items: center;
 }
 
-.noodle-bowl {
+.noodles-container {
     width: 80px;
-    height: 80px;
-    background: linear-gradient(to bottom, #f4f4f4 0%, #e0e0e0 50%, #d0d0d0 100%);
-    border-radius: 50%;
+    height: 60px;
     position: relative;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.5);
-    border: 3px solid #c0c0c0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
-
-.noodle-bowl::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90px;
-    height: 15px;
-    background: linear-gradient(to bottom, #f0f0f0, #d8d8d8);
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .noodle-strand {
-    width: 40px;
-    height: 3px;
-    background: linear-gradient(to right, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #FFE4B5 0%, #F4A460 50%, #DEB887 100%);
     border-radius: 2px;
-    margin: 2px 0;
+    margin: 1px 0;
     position: relative;
-    animation: noodle-wiggle 3s ease-in-out infinite;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    animation: noodle-wave 2s ease-in-out infinite;
 }
 
 .noodle-strand:nth-child(1) {
-    transform: rotate(-5deg);
+    transform: translateX(-5px);
     animation-delay: 0s;
+    border-radius: 50% 20% 50% 20%;
 }
 
 .noodle-strand:nth-child(2) {
-    transform: rotate(3deg);
-    animation-delay: 0.5s;
+    transform: translateX(8px);
+    animation-delay: 0.3s;
+    border-radius: 20% 50% 20% 50%;
 }
 
 .noodle-strand:nth-child(3) {
-    transform: rotate(-2deg);
-    animation-delay: 1s;
+    transform: translateX(-3px);
+    animation-delay: 0.6s;
+    border-radius: 40% 60% 40% 60%;
 }
 
-@keyframes noodle-wiggle {
-    0%, 100% { transform: translateX(0) rotate(var(--rotation, 0deg)); }
-    25% { transform: translateX(2px) rotate(calc(var(--rotation, 0deg) + 2deg)); }
-    75% { transform: translateX(-2px) rotate(calc(var(--rotation, 0deg) - 2deg)); }
+.noodle-strand:nth-child(4) {
+    transform: translateX(6px);
+    animation-delay: 0.9s;
+    border-radius: 60% 40% 60% 40%;
 }
+
+.noodle-strand:nth-child(5) {
+    transform: translateX(-2px);
+    animation-delay: 1.2s;
+    border-radius: 30% 70% 30% 70%;
+}
+
+@keyframes noodle-wave {
+    0%, 100% { 
+        transform: translateX(var(--base-x, 0)) scaleX(1);
+        border-radius: 50% 20% 50% 20%;
+    }
+    25% { 
+        transform: translateX(calc(var(--base-x, 0) + 3px)) scaleX(1.1);
+        border-radius: 20% 50% 20% 50%;
+    }
+    50% { 
+        transform: translateX(var(--base-x, 0)) scaleX(0.9);
+        border-radius: 60% 40% 60% 40%;
+    }
+    75% { 
+        transform: translateX(calc(var(--base-x, 0) - 3px)) scaleX(1.1);
+        border-radius: 40% 60% 40% 60%;
+    }
+}
+
+.noodle-strand:nth-child(1) { --base-x: -5px; }
+.noodle-strand:nth-child(2) { --base-x: 8px; }
+.noodle-strand:nth-child(3) { --base-x: -3px; }
+.noodle-strand:nth-child(4) { --base-x: 6px; }
+.noodle-strand:nth-child(5) { --base-x: -2px; }
 
 .noodles-plate i {
     font-size: 4rem;
