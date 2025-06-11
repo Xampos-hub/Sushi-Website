@@ -117,3 +117,107 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+
+// Load contact data from GitHub or localStorage
+async function loadContactData() {
+    try {
+        // Try to load from GitHub first
+        const response = await fetch('https://raw.githubusercontent.com/Xampos-hub/Sushi-Website/main/contact-data.json');
+        if (response.ok) {
+            const contactData = await response.json();
+            updateContactInfo(contactData);
+            return;
+        }
+    } catch (error) {
+        console.log('Loading from GitHub failed, trying localStorage...');
+    }
+    
+    // Fallback to localStorage
+    const savedData = localStorage.getItem('contactData');
+    if (savedData) {
+        const contactData = JSON.parse(savedData);
+        updateContactInfo(contactData);
+    }
+}
+
+// Update contact information on the page
+function updateContactInfo(contactData) {
+    const currentLang = document.documentElement.lang || 'en';
+    
+    // Update address
+    const addressElement = document.querySelector('[data-contact="address"]');
+    if (addressElement && contactData.address) {
+        addressElement.textContent = contactData.address[currentLang] || contactData.address.en;
+    }
+    
+    // Update phone
+    const phoneElement = document.querySelector('[data-contact="phone"]');
+    if (phoneElement && contactData.phone) {
+        phoneElement.textContent = contactData.phone[currentLang] || contactData.phone.en;
+    }
+    
+    // Update email
+    const emailElement = document.querySelector('[data-contact="email"]');
+    if (emailElement && contactData.email) {
+        emailElement.textContent = contactData.email[currentLang] || contactData.email.en;
+    }
+    
+    // Update hours
+    const hoursElement = document.querySelector('[data-contact="hours"]');
+    if (hoursElement && contactData.hours) {
+        hoursElement.textContent = contactData.hours[currentLang] || contactData.hours.en;
+    }
+    
+    // Update map title
+    const mapTitleElement = document.querySelector('[data-contact="map-title"]');
+    if (mapTitleElement && contactData.mapTitle) {
+        mapTitleElement.textContent = contactData.mapTitle[currentLang] || contactData.mapTitle.en;
+    }
+    
+    // Update map description
+    const mapDescElement = document.querySelector('[data-contact="map-description"]');
+    if (mapDescElement && contactData.mapDescription) {
+        mapDescElement.textContent = contactData.mapDescription[currentLang] || contactData.mapDescription.en;
+    }
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    loadContactData();
+});
+
+// Update switchLanguage function to reload contact data
+function switchLanguage(lang) {
+    currentLanguage = lang;
+    
+    // Update language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById(`lang-${lang}`).classList.add('active');
+    
+    // Update all elements with data attributes
+    document.querySelectorAll('[data-en][data-gr]').forEach(element => {
+        const text = element.getAttribute(`data-${lang}`);
+        if (text) {
+            if (element.tagName === 'INPUT' || element.tagName === 'BUTTON') {
+                if (element.placeholder) {
+                    element.placeholder = text;
+                } else {
+                    element.textContent = text;
+                }
+            } else {
+                element.textContent = text;
+            }
+        }
+    });
+    
+    // Update menu language for dynamically loaded content
+    if (typeof updateMenuLanguage === 'function') {
+        updateMenuLanguage(lang);
+    }
+    
+    // Reload contact data for new language
+    loadContactData();
+}

@@ -390,3 +390,138 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// GitHub API Configuration
+const GITHUB_CONFIG = {
+    owner: 'Xampos-hub',
+    repo: 'Sushi-Website',
+    token: '', // Θα το βάλεις εσύ στο admin panel
+    branch: 'main'
+};
+
+// Save contact info to GitHub
+async function saveContactInfoToGitHub(contactData) {
+    if (!GITHUB_CONFIG.token) {
+        showNotification('Παρακαλώ εισάγετε το GitHub token πρώτα!', 'error');
+        return false;
+    }
+
+    try {
+        showNotification('Αποθήκευση στο GitHub...', 'info');
+        
+        // Get current file SHA
+        const getResponse = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/contact-data.json`, {
+            headers: {
+                'Authorization': `token ${GITHUB_CONFIG.token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        let sha = null;
+        if (getResponse.ok) {
+            const fileData = await getResponse.json();
+            sha = fileData.sha;
+        }
+        
+        // Update file
+        const content = btoa(JSON.stringify(contactData, null, 2));
+        const updateResponse = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/contact-data.json`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${GITHUB_CONFIG.token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Update contact information via admin panel',
+                content: content,
+                sha: sha,
+                branch: GITHUB_CONFIG.branch
+            })
+        });
+        
+        if (updateResponse.ok) {
+            showNotification('Επιτυχής αποθήκευση στο GitHub! Το site ενημερώθηκε.', 'success');
+            return true;
+        } else {
+            throw new Error(`GitHub API Error: ${updateResponse.status}`);
+        }
+    } catch (error) {
+        console.error('GitHub save error:', error);
+        showNotification('Σφάλμα κατά την αποθήκευση στο GitHub: ' + error.message, 'error');
+        return false;
+    }
+}
+
+// Updated save contact info function
+async function saveContactInfo() {
+    const contactData = {
+        address: {
+            en: document.getElementById('address-en').value,
+            gr: document.getElementById('address-gr').value
+        },
+        phone: {
+            en: document.getElementById('phone-en').value,
+            gr: document.getElementById('phone-gr').value
+        },
+        email: {
+            en: document.getElementById('email-en').value,
+            gr: document.getElementById('email-gr').value
+        },
+        hours: {
+            en: document.getElementById('hours-en').value,
+            gr: document.getElementById('hours-gr').value
+        },
+        mapTitle: {
+            en: document.getElementById('map-title-en').value,
+            gr: document.getElementById('map-title-gr').value
+        },
+        mapDescription: {
+            en: document.getElementById('map-desc-en').value,
+            gr: document.getElementById('map-desc-gr').value
+        }
+    };
+    
+    // Save to GitHub
+    const success = await saveContactInfoToGitHub(contactData);
+    
+    if (success) {
+        // Also save locally as backup
+        localStorage.setItem('contactData', JSON.stringify(contactData));
+    }
+}
+
+// Set GitHub token function
+function setGitHubToken() {
+    const token = prompt('Εισάγετε το GitHub Personal Access Token:');
+    if (token) {
+        GITHUB_CONFIG.token = token;
+        localStorage.setItem('githubToken', token);
+        showNotification('GitHub token αποθηκεύτηκε!', 'success');
+    }
+}
+
+// Load GitHub token on page load
+function loadGitHubToken() {
+    const savedToken = localStorage.getItem('githubToken');
+    if (savedToken) {
+        GITHUB_CONFIG.token = savedToken;
+    }
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    loadGitHubToken();
+    loadMenuData();
+    loadContactData();
+    
+    // Add GitHub token button to settings
+    const settingsSection = document.getElementById('settings-section');
+    if (settingsSection) {
+        const tokenButton = document.createElement('button');
+        tokenButton.textContent = 'Ρύθμιση GitHub Token';
+        tokenButton.className = 'btn btn-secondary';
+        tokenButton.onclick = setGitHubToken;
+        settingsSection.appendChild(tokenButton);
+    }
+});
