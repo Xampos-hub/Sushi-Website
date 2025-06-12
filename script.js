@@ -34,8 +34,16 @@ function switchLanguage(lang) {
 
 // Language toggle event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
-    document.getElementById('lang-gr').addEventListener('click', () => switchLanguage('gr'));
+    const langEn = document.getElementById('lang-en');
+    const langGr = document.getElementById('lang-gr');
+    
+    if (langEn) {
+        langEn.addEventListener('click', () => switchLanguage('en'));
+    }
+    
+    if (langGr) {
+        langGr.addEventListener('click', () => switchLanguage('gr'));
+    }
 });
 
 // Mobile Navigation
@@ -110,12 +118,18 @@ function reinitializeMenuFiltering() {
         btn.classList.remove('active');
     });
     // Set "All" as active
-    document.querySelector('.category-btn[data-category="all"]').classList.add('active');
+    const allButton = document.querySelector('.category-btn[data-category="all"]');
+    if (allButton) {
+        allButton.classList.add('active');
+    }
     
     // Show all items
     document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('hidden');
     });
+    
+    // Re-attach event listeners to category buttons
+    initializeMenuFiltering();
 }
 
 // Add CSS for animations

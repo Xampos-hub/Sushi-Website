@@ -35,6 +35,11 @@ function renderMenuItems() {
             menuContainer.appendChild(menuItem);
         });
     });
+    
+    // Re-initialize menu filtering after adding new items
+    if (typeof reinitializeMenuFiltering === 'function') {
+        reinitializeMenuFiltering();
+    }
 }
 
 // Create menu item element
