@@ -15,30 +15,41 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load contact data from JSON
 async function loadContactData() {
     try {
-        const response = await fetch('contact-data.json');
-        contactData = await response.json();
-        // ΜΟΝΟ ΜΙΑ ΦΟΡΑ:
-        populateContactForm(contactData);
+        // Προσπάθεια φόρτωσης από το JSON αρχείο
+        const response = await fetch('contact-data.json?t=' + Date.now());
+        if (response.ok) {
+            contactData = await response.json();
+            populateContactForm(contactData);
+            return;
+        }
     } catch (error) {
-        console.error('Error loading contact data:', error);
-        
-        // Try to load from localStorage
+        console.warn('Could not load from contact-data.json:', error);
+    }
+    
+    try {
+        // Εναλλακτικά, φόρτωση από localStorage
         const savedData = localStorage.getItem('contactData');
         if (savedData) {
             contactData = JSON.parse(savedData);
-            populateContactForm(contactData);  // ΠΡΟΣΘΕΣΕ ΤΗΝ ΠΑΡΑΜΕΤΡΟ
-        } else {
-            contactData = {
-                address: { en: "", gr: "" },
-                phone: { en: "", gr: "" },
-                email: { en: "", gr: "" },
-                hours: { en: "", gr: "" },
-                mapTitle: { en: "Find Us in Athens", gr: "Βρείτε μας στην Αθήνα" },
-                mapDescription: { en: "", gr: "" }
-            };
-            populateContactForm(contactData);  // ΠΡΟΣΘΕΣΕ ΑΥΤΗ ΤΗ ΓΡΑΜΜΗ
+            populateContactForm(contactData);
+            showNotification('Φορτώθηκαν δεδομένα από την προσωρινή αποθήκευση', 'info');
+            return;
         }
+    } catch (error) {
+        console.warn('Could not load from localStorage:', error);
     }
+    
+    // Τελευταία επιλογή: Δημιουργία κενής δομής
+    contactData = {
+        address: { en: "", gr: "" },
+        phone: { en: "", gr: "" },
+        email: { en: "", gr: "" },
+        hours: { en: "", gr: "" },
+        mapTitle: { en: "Find Us in Athens", gr: "Βρείτε μας στην Αθήνα" },
+        mapDescription: { en: "", gr: "" }
+    };
+    populateContactForm(contactData);
+    showNotification('Δημιουργήθηκε νέα φόρμα επικοινωνίας', 'info');
 }
 
 // Login function
@@ -270,6 +281,7 @@ const GITHUB_CONFIG = {
 };
 
 // Save contact info to GitHub
+// Save contact info
 async function saveContactInfo() {
     try {
         const contactData = {
@@ -298,10 +310,28 @@ async function saveContactInfo() {
                 gr: document.getElementById('map-desc-gr').value
             }
         };
-        // ... existing code ...
         
-        await saveContactInfoToGitHub(contactData);
-        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς στο GitHub!', 'success');
+        // Ενημέρωση της global μεταβλητής
+        window.contactData = contactData;
+        
+        // Αποθήκευση στο localStorage για άμεση χρήση
+        localStorage.setItem('contactData', JSON.stringify(contactData));
+        
+        // Αυτόματη λήψη του ενημερωμένου αρχείου
+        await saveToLocalFile(contactData, 'contact-data.json');
+        
+        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν! Παρακαλώ αντικαταστήστε το contact-data.json αρχείο με το νέο που κατέβηκε.', 'success');
+        
+        // Προαιρετικά: Αποθήκευση στο GitHub αν υπάρχει token
+        const token = localStorage.getItem('githubToken');
+        if (token) {
+            try {
+                await saveContactInfoToGitHub(contactData);
+                showNotification('Επίσης αποθηκεύτηκε στο GitHub!', 'success');
+            } catch (githubError) {
+                console.warn('GitHub save failed:', githubError);
+            }
+        }
         
     } catch (error) {
         console.error('Error saving contact info:', error);
