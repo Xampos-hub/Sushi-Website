@@ -287,14 +287,8 @@ async function saveContactInfo() {
                 en: document.getElementById('address-en').value,
                 gr: document.getElementById('address-gr').value
             },
-            phone: {
-                en: document.getElementById('phone').value,
-                gr: document.getElementById('phone').value
-            },
-            email: {
-                en: document.getElementById('email').value,
-                gr: document.getElementById('email').value
-            },
+            phone: document.getElementById('phone').value,        // ← ΔΙΟΡΘΩΣΗ: αφαίρεση του object
+            email: document.getElementById('email').value,        // ← ΔΙΟΡΘΩΣΗ: αφαίρεση του object
             hours: {
                 en: document.getElementById('hours-en').value,
                 gr: document.getElementById('hours-gr').value
@@ -308,6 +302,7 @@ async function saveContactInfo() {
                 gr: document.getElementById('map-desc-gr').value
             }
         };
+        // ... existing code ...
         
         await saveContactInfoToGitHub(contactData);
         showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς στο GitHub!', 'success');
