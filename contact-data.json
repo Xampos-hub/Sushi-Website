@@ -1,26 +1,26 @@
 {
-    "address": {
-      "en": "",
-      "gr": ""
-    },
-    "phone": {
-      "en": "",
-      "gr": ""
-    },
-    "email": {
-      "en": "info@TESTSTEE.gr",
-      "gr": "info@TESTSTEE.gr"
-    },
-    "hours": {
-      "en": "",
-      "gr": ""
-    },
-    "mapTitle": {
-      "en": "",
-      "gr": ""
-    },
-    "mapDescription": {
-      "en": "",
-      "gr": ""
-    }
+  "address": {
+    "en": "",
+    "gr": ""
+  },
+  "phone": {
+    "en": "",
+    "gr": ""
+  },
+  "email": {
+    "en": "info@TESTSTEE.gr",
+    "gr": "info@TESTSTEE.gr"
+  },
+  "hours": {
+    "en": "",
+    "gr": ""
+  },
+  "mapTitle": {
+    "en": "",
+    "gr": ""
+  },
+  "mapDescription": {
+    "en": "",
+    "gr": ""
   }
+}
