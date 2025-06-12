@@ -35,10 +35,17 @@ function renderMenuItems() {
         });
     });
     
-    // Re-initialize menu filtering after adding new items
-    if (typeof reinitializeMenuFiltering === 'function') {
-        reinitializeMenuFiltering();
-    }
+    // ΣΗΜΑΝΤΙΚΟ: Επανεκκίνηση των event listeners
+    setTimeout(() => {
+        if (typeof reinitializeMenuFiltering === 'function') {
+            reinitializeMenuFiltering();
+        }
+        
+        // Επανεκκίνηση της αλλαγής γλώσσας για τα νέα στοιχεία
+        if (typeof switchLanguage === 'function' && currentLanguage) {
+            switchLanguage(currentLanguage);
+        }
+    }, 100);
 }
 
 // Create menu item element

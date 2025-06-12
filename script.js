@@ -114,10 +114,16 @@ document.addEventListener('DOMContentLoaded', initializeMenuFiltering);
 
 // Re-initialize filtering when menu is updated
 function reinitializeMenuFiltering() {
+    // Αφαίρεση παλιών event listeners
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.replaceWith(btn.cloneNode(true));
+    });
+    
     // Reset all buttons to inactive
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
     });
+    
     // Set "All" as active
     const allButton = document.querySelector('.category-btn[data-category="all"]');
     if (allButton) {

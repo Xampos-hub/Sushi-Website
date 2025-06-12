@@ -50,7 +50,7 @@ function login() {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'block';
         loadMenuData();
-        loadContactData();  // ΠΡΟΣΘΕΣΕ ΑΥΤΗ ΤΗ ΓΡΑΜΜΗ
+        loadContactData();  // ΠΡΟΣΘΕΣΕ ΑΥΤΗ ΤΗ ΓΡΑΜΗ
         showNotification('Επιτυχής σύνδεση!', 'success');
     } else {
         showNotification('Λάθος στοιχεία σύνδεσης!', 'error');
@@ -509,3 +509,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Load menu data from JSON (για admin panel)
+async function loadMenuData() {
+    try {
+        const response = await fetch('menu-data.json');
+        menuData = await response.json();
+        
+        // Εμφάνιση της τρέχουσας κατηγορίας
+        displayMenuItems(currentCategory);
+        
+        showNotification('Τα δεδομένα του μενού φορτώθηκαν επιτυχώς!', 'success');
+    } catch (error) {
+        console.error('Error loading menu data:', error);
+        showNotification('Σφάλμα κατά τη φόρτωση των δεδομένων του μενού!', 'error');
+        
+        // Fallback - δημιουργία κενής δομής
+        menuData = {
+            sushi: [],
+            noodles: [],
+            appetizers: [],
+            drinks: []
+        };
+        displayMenuItems(currentCategory);
+    }
+}
