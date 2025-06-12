@@ -254,20 +254,18 @@ function removeItem(category, index) {
     }
 }
 
-// Populate contact form
-function populateContactForm() {
-    if (contactData) {
-        document.getElementById('address-en').value = contactData.address?.en || '';
-        document.getElementById('address-gr').value = contactData.address?.gr || '';
-        document.getElementById('phone').value = contactData.phone || '';
-        document.getElementById('email').value = contactData.email || '';
-        document.getElementById('hours-en').value = contactData.hours?.en || '';
-        document.getElementById('hours-gr').value = contactData.hours?.gr || '';
-        document.getElementById('map-title-en').value = contactData.mapTitle?.en || '';
-        document.getElementById('map-title-gr').value = contactData.mapTitle?.gr || '';
-        document.getElementById('map-desc-en').value = contactData.mapDescription?.en || '';
-        document.getElementById('map-desc-gr').value = contactData.mapDescription?.gr || '';
-    }
+// Populate contact form with existing data
+function populateContactForm(contactData) {
+    document.getElementById('address-en').value = contactData.address?.en || '';
+    document.getElementById('address-gr').value = contactData.address?.gr || '';
+    document.getElementById('phone').value = contactData.phone?.en || '';
+    document.getElementById('email').value = contactData.email?.en || '';
+    document.getElementById('hours-en').value = contactData.hours?.en || '';
+    document.getElementById('hours-gr').value = contactData.hours?.gr || '';
+    document.getElementById('map-title-en').value = contactData.mapTitle?.en || '';
+    document.getElementById('map-title-gr').value = contactData.mapTitle?.gr || '';
+    document.getElementById('map-desc-en').value = contactData.mapDescription?.en || '';
+    document.getElementById('map-desc-gr').value = contactData.mapDescription?.gr || '';
 }
 
 // GitHub configuration
@@ -287,12 +285,12 @@ async function saveContactInfo() {
                 gr: document.getElementById('address-gr').value
             },
             phone: {
-                en: document.getElementById('phone-en').value,
-                gr: document.getElementById('phone-gr').value
+                en: document.getElementById('phone').value,
+                gr: document.getElementById('phone').value
             },
             email: {
-                en: document.getElementById('email-en').value,
-                gr: document.getElementById('email-gr').value
+                en: document.getElementById('email').value,
+                gr: document.getElementById('email').value
             },
             hours: {
                 en: document.getElementById('hours-en').value,
@@ -308,16 +306,8 @@ async function saveContactInfo() {
             }
         };
         
-        // Save to localStorage immediately
-        localStorage.setItem('contactData', JSON.stringify(contactData));
-        
-        // Save to GitHub
         await saveContactInfoToGitHub(contactData);
-        
-        // Also save to local file as backup
-        await saveToLocalFile(contactData, 'contact-data.json');
-        
-        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς!', 'success');
+        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς στο GitHub!', 'success');
         
     } catch (error) {
         console.error('Error saving contact info:', error);
