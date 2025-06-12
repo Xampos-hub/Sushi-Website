@@ -28,7 +28,11 @@ async function loadContactData() {
     try {
         const response = await fetch('contact-data.json');
         contactData = await response.json();
-        populateContactForm();
+        // Γραμμή 31:
+        populateContactForm(contactData);
+        
+        // Γραμμή 39:
+        populateContactForm(contactData);
     } catch (error) {
         console.error('Error loading contact data:', error);
         
@@ -38,11 +42,10 @@ async function loadContactData() {
             contactData = JSON.parse(savedData);
             populateContactForm();
         } else {
-            // Create default contact data if nothing exists
             contactData = {
                 address: { en: "", gr: "" },
-                phone: "",
-                email: "",
+                phone: { en: "", gr: "" },    // ← Διόρθωση
+                email: { en: "", gr: "" },    // ← Διόρθωση
                 hours: { en: "", gr: "" },
                 mapTitle: { en: "Find Us in Athens", gr: "Βρείτε μας στην Αθήνα" },
                 mapDescription: { en: "", gr: "" }
@@ -258,8 +261,8 @@ function removeItem(category, index) {
 function populateContactForm(contactData) {
     document.getElementById('address-en').value = contactData.address?.en || '';
     document.getElementById('address-gr').value = contactData.address?.gr || '';
-    document.getElementById('phone').value = contactData.phone?.en || '';
-    document.getElementById('email').value = contactData.email?.en || '';
+    document.getElementById('phone').value = contactData.phone || '';        // ← ΣΩΣΤΟ!
+    document.getElementById('email').value = contactData.email || '';        // ← ΣΩΣΤΟ!
     document.getElementById('hours-en').value = contactData.hours?.en || '';
     document.getElementById('hours-gr').value = contactData.hours?.gr || '';
     document.getElementById('map-title-en').value = contactData.mapTitle?.en || '';
