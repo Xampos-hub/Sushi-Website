@@ -261,8 +261,10 @@ function removeItem(category, index) {
 function populateContactForm(contactData) {
     document.getElementById('address-en').value = contactData.address?.en || '';
     document.getElementById('address-gr').value = contactData.address?.gr || '';
-    document.getElementById('phone').value = contactData.phone || '';        // ← ΣΩΣΤΟ!
-    document.getElementById('email').value = contactData.email || '';        // ← ΣΩΣΤΟ!
+    document.getElementById('phone-en').value = contactData.phone?.en || '';
+    document.getElementById('phone-gr').value = contactData.phone?.gr || '';
+    document.getElementById('email-en').value = contactData.email?.en || '';
+    document.getElementById('email-gr').value = contactData.email?.gr || '';
     document.getElementById('hours-en').value = contactData.hours?.en || '';
     document.getElementById('hours-gr').value = contactData.hours?.gr || '';
     document.getElementById('map-title-en').value = contactData.mapTitle?.en || '';
@@ -287,8 +289,14 @@ async function saveContactInfo() {
                 en: document.getElementById('address-en').value,
                 gr: document.getElementById('address-gr').value
             },
-            phone: document.getElementById('phone').value,        // ← ΔΙΟΡΘΩΣΗ: αφαίρεση του object
-            email: document.getElementById('email').value,        // ← ΔΙΟΡΘΩΣΗ: αφαίρεση του object
+            phone: {
+                en: document.getElementById('phone-en').value,
+                gr: document.getElementById('phone-gr').value
+            },
+            email: {
+                en: document.getElementById('email-en').value,
+                gr: document.getElementById('email-gr').value
+            },
             hours: {
                 en: document.getElementById('hours-en').value,
                 gr: document.getElementById('hours-gr').value
