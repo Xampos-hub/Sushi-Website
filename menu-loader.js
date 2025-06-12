@@ -40,22 +40,23 @@ function renderMenuItems() {
 // Create menu item element
 function createMenuItem(item, category) {
     const menuItem = document.createElement('div');
-    menuItem.className = `menu-item ${category}`;
+    menuItem.className = 'menu-item';
+    menuItem.setAttribute('data-category', category);
+    
     menuItem.innerHTML = `
-        <div class="menu-icon">
+        <div class="menu-item-image">
             <i class="${item.icon}"></i>
         </div>
-        <div class="menu-content">
-            <h3 data-en="${item.name.en}" data-gr="${item.name.gr}">${item.name[currentLanguage]}</h3>
-            <p data-en="${item.description.en}" data-gr="${item.description.gr}">${item.description[currentLanguage]}</p>
-            <span class="price">${item.price}</span>
-        </div>
+        <h3 data-en="${item.name.en}" data-gr="${item.name.gr}">${item.name[currentLanguage]}</h3>
+        <p data-en="${item.description.en}" data-gr="${item.description.gr}">${item.description[currentLanguage]}</p>
+        <span class="price">${item.price}</span>
     `;
     return menuItem;
 }
 
 // Update language for dynamically loaded content
 function updateMenuLanguage(lang) {
+    currentLanguage = lang;
     document.querySelectorAll('.menu-item [data-en][data-gr]').forEach(element => {
         const text = element.getAttribute(`data-${lang}`);
         if (text) {

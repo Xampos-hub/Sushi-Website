@@ -33,8 +33,10 @@ function switchLanguage(lang) {
 }
 
 // Language toggle event listeners
-document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
-document.getElementById('lang-gr').addEventListener('click', () => switchLanguage('gr'));
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('lang-en').addEventListener('click', () => switchLanguage('en'));
+    document.getElementById('lang-gr').addEventListener('click', () => switchLanguage('gr'));
+});
 
 // Mobile Navigation
 const hamburger = document.querySelector('.hamburger');
@@ -59,67 +61,75 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            // Fallback για browsers που δεν υποστηρίζουν smooth behavior
             if ('scrollBehavior' in document.documentElement.style) {
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
             } else {
-                // Fallback για παλιότερους browsers
                 target.scrollIntoView();
             }
         }
     });
 });
 
-// Menu filtering
-const categoryBtns = document.querySelectorAll('.category-btn');
-const menuItems = document.querySelectorAll('.menu-item');
-
-categoryBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        categoryBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        const category = btn.getAttribute('data-category');
-        
-        menuItems.forEach(item => {
-            if (category === 'all' || item.getAttribute('data-category') === category) {
-                item.classList.remove('hidden');
-            } else {
-                item.classList.add('hidden');
-            }
+// Menu filtering - Updated to work with dynamic content
+function initializeMenuFiltering() {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            const category = btn.getAttribute('data-category');
+            
+            // Get current menu items (may be dynamically loaded)
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
         });
     });
-});
+}
+
+// Initialize menu filtering when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeMenuFiltering);
+
+// Re-initialize filtering when menu is updated
+function reinitializeMenuFiltering() {
+    // Reset all buttons to inactive
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    // Set "All" as active
+    document.querySelector('.category-btn[data-category="all"]').classList.add('active');
+    
+    // Show all items
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('hidden');
+    });
+}
 
 // Add CSS for animations
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+    .menu-item {
+        transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
-    }
-    
-    .hamburger.active span:nth-child(2) {
+    .menu-item.hidden {
         opacity: 0;
-    }
-    
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
+        transform: scale(0.8);
+        pointer-events: none;
+        position: absolute;
+        visibility: hidden;
     }
 `;
 document.head.appendChild(style);
