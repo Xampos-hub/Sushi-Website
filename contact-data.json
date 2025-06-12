@@ -3,14 +3,8 @@
     "en": "",
     "gr": ""
   },
-  "phone": {
-    "en": "[object Object]",
-    "gr": "[object Object]"
-  },
-  "email": {
-    "en": "info@TESTSTEE.gr",
-    "gr": "info@TESTSTEE.gr"
-  },
+  "phone": "[object Object]",
+  "email": "info@TESTSTEE.gr",
   "hours": {
     "en": "",
     "gr": ""
