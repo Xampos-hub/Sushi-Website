@@ -8,30 +8,16 @@ const ADMIN_PASSWORD = 'sushi123';
 
 // Initialize admin panel
 document.addEventListener('DOMContentLoaded', function() {
-    loadContactData();
+    // ΜΗΝ καλείς την loadContactData εδώ
+    // Θα καλείται μόνο όταν συνδεθεί ο χρήστης
 });
-
-// Load menu data from JSON
-async function loadMenuData() {
-    try {
-        const response = await fetch('menu-data.json');
-        menuData = await response.json();
-        displayMenuItems(currentCategory);
-    } catch (error) {
-        console.error('Error loading menu data:', error);
-        alert('Error loading menu data. Please check if menu-data.json exists.');
-    }
-}
 
 // Load contact data from JSON
 async function loadContactData() {
     try {
         const response = await fetch('contact-data.json');
         contactData = await response.json();
-        // Γραμμή 31:
-        populateContactForm(contactData);
-        
-        // Γραμμή 39:
+        // ΜΟΝΟ ΜΙΑ ΦΟΡΑ:
         populateContactForm(contactData);
     } catch (error) {
         console.error('Error loading contact data:', error);
@@ -40,16 +26,17 @@ async function loadContactData() {
         const savedData = localStorage.getItem('contactData');
         if (savedData) {
             contactData = JSON.parse(savedData);
-            populateContactForm();
+            populateContactForm(contactData);  // ΠΡΟΣΘΕΣΕ ΤΗΝ ΠΑΡΑΜΕΤΡΟ
         } else {
             contactData = {
                 address: { en: "", gr: "" },
-                phone: { en: "", gr: "" },    // ← Διόρθωση
-                email: { en: "", gr: "" },    // ← Διόρθωση
+                phone: { en: "", gr: "" },
+                email: { en: "", gr: "" },
                 hours: { en: "", gr: "" },
                 mapTitle: { en: "Find Us in Athens", gr: "Βρείτε μας στην Αθήνα" },
                 mapDescription: { en: "", gr: "" }
             };
+            populateContactForm(contactData);  // ΠΡΟΣΘΕΣΕ ΑΥΤΗ ΤΗ ΓΡΑΜΜΗ
         }
     }
 }
@@ -63,6 +50,7 @@ function login() {
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('admin-panel').style.display = 'block';
         loadMenuData();
+        loadContactData();  // ΠΡΟΣΘΕΣΕ ΑΥΤΗ ΤΗ ΓΡΑΜΜΗ
         showNotification('Επιτυχής σύνδεση!', 'success');
     } else {
         showNotification('Λάθος στοιχεία σύνδεσης!', 'error');
