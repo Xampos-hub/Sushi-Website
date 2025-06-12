@@ -128,11 +128,14 @@ document.head.appendChild(style);
 // Load contact data from GitHub or localStorage
 async function loadContactData() {
     try {
-        // Try to load from GitHub first
-        const response = await fetch('https://raw.githubusercontent.com/Xamposs/Sushi-Website/main/contact-data.json');
+        // Add timestamp to prevent caching
+        const timestamp = new Date().getTime();
+        const response = await fetch(`https://raw.githubusercontent.com/Xamposs/Sushi-Website/main/contact-data.json?t=${timestamp}`);
         if (response.ok) {
             const contactData = await response.json();
             updateContactInfo(contactData);
+            // Store in localStorage as backup
+            localStorage.setItem('contactData', JSON.stringify(contactData));
             return;
         }
     } catch (error) {
@@ -146,6 +149,9 @@ async function loadContactData() {
         updateContactInfo(contactData);
     }
 }
+
+// Auto-refresh contact data every 30 seconds
+setInterval(loadContactData, 30000);
 
 // Update contact information on the page
 function updateContactInfo(contactData) {

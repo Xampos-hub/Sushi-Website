@@ -281,13 +281,19 @@ const GITHUB_CONFIG = {
 // Save contact info to GitHub
 async function saveContactInfo() {
     try {
-        contactData = {
+        const contactData = {
             address: {
                 en: document.getElementById('address-en').value,
                 gr: document.getElementById('address-gr').value
             },
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
+            phone: {
+                en: document.getElementById('phone-en').value,
+                gr: document.getElementById('phone-gr').value
+            },
+            email: {
+                en: document.getElementById('email-en').value,
+                gr: document.getElementById('email-gr').value
+            },
             hours: {
                 en: document.getElementById('hours-en').value,
                 gr: document.getElementById('hours-gr').value
@@ -302,12 +308,35 @@ async function saveContactInfo() {
             }
         };
         
+        // Save to localStorage immediately
+        localStorage.setItem('contactData', JSON.stringify(contactData));
+        
+        // Save to GitHub
         await saveContactInfoToGitHub(contactData);
-        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς στο GitHub!', 'success');
+        
+        // Also save to local file as backup
+        await saveToLocalFile(contactData, 'contact-data.json');
+        
+        showNotification('Τα στοιχεία επικοινωνίας αποθηκεύτηκαν επιτυχώς!', 'success');
         
     } catch (error) {
         console.error('Error saving contact info:', error);
         showNotification('Σφάλμα κατά την αποθήκευση: ' + error.message, 'error');
+    }
+}
+
+// Save to local file function
+async function saveToLocalFile(data, filename) {
+    try {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.log('Local file save failed:', error);
     }
 }
 

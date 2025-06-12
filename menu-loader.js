@@ -5,7 +5,9 @@ let currentLanguage = 'en';
 // Load menu data from JSON
 async function loadMenuData() {
     try {
-        const response = await fetch('menu-data.json');
+        // Add timestamp to prevent caching
+        const timestamp = new Date().getTime();
+        const response = await fetch(`menu-data.json?t=${timestamp}`);
         menuData = await response.json();
         renderMenuItems();
     } catch (error) {
@@ -13,6 +15,9 @@ async function loadMenuData() {
         // Fallback to existing hardcoded menu if JSON fails
     }
 }
+
+// Auto-refresh menu data every 30 seconds
+setInterval(loadMenuData, 30000);
 
 // Render menu items
 function renderMenuItems() {
