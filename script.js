@@ -33,6 +33,7 @@ function switchLanguage(lang) {
 }
 
 // Language toggle event listeners
+// Language toggle event listeners
 document.addEventListener('DOMContentLoaded', function() {
     const langEn = document.getElementById('lang-en');
     const langGr = document.getElementById('lang-gr');

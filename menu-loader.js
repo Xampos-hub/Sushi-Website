@@ -1,4 +1,3 @@
-// Menu Loader - Loads menu items from JSON
 let menuData = {};
 let currentLanguage = 'en';
 
